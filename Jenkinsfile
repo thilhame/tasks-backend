@@ -13,14 +13,13 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SONAR_LOCAL') {
-                    /* groovylint-disable-next-line LineLength */
-                    bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBackend -Dsonar.host.url=http://localhost:9000 -Dsonar.login=edda67667fc0a0274f7b5ff473cce30611a0029c -Dsonar.java.binaries=target"
+                    bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBackend -Dsonar.host.url=http://localhost:9000 -Dsonar.login=edda67667fc0a0274f7b5ff473cce30611a0029c"
                 }
             }
         }
-        stage ('Quality Gate') {
+        stage('Quality Gate') {
             steps {
-                sleep(20)
+                sleep(5)
                 timeout(time: 1, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
